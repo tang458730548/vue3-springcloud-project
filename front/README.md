@@ -1,16 +1,18 @@
-# front
+# 介绍
 
-## Project setup
+### 1.项目安装
 ```
+# node版本采用16.15.1
+# vue版本4.5.9
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### 2.项目启动
 ```
-yarn serve
+yarn start
 ```
 
-### Compiles and minifies for production
+### 3.打包
 ```
 yarn build
 ```
