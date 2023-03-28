@@ -28,5 +28,6 @@
   7、集成热部署
   8、集成openfeign,在admin-portal服务中调用admin-service-base
      的服务接口
+  9、修改fastjson版本号、集成日志切面，打印日志信息
 ```
 
