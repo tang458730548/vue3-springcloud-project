@@ -9,17 +9,23 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>admin-services</artifactId>
+    <artifactId>admin-common</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>admin-service-base</module>
-        <module>admin-service-weixin</module>
+        <module>admin-common-core</module>
     </modules>
 
     <dependencies>
+        <!-- mybatis相关依赖 -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <!-- mysql 依赖 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
 
