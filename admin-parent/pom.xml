@@ -12,7 +12,6 @@
         <module>admin-base</module>
         <module>admin-services</module>
         <module>admin-portal</module>
-        <module>admin-services/admin-service-base</module>
         <module>admin-common</module>
     </modules>
 
