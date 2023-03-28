@@ -1,9 +1,14 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <a-row type="flex">
+    <a-col flex="100px">
+      100px
+      <a-space style="width: 100%">
+        <a-button type="primary" loading>Loading</a-button>
+        <a-button type="primary" size="small" loading>Loading</a-button>
+      </a-space>
+    </a-col>
+    <a-col flex="auto">auto</a-col>
+  </a-row>
 </template>
 
 <style>
