@@ -7,5 +7,7 @@
   3、增加admin-service-base 、 admin-service-weixin两个服务模块
   4、增加admin-common模块，并且添加了一些统一http返回、常量枚举等
   5、admin-service-base服务整合mybatis-generate自动生成实体类
+  6、admin-service-base服务整合logback日志
+  7、集成热部署
 ```
 

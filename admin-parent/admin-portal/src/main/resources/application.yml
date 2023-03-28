@@ -1,5 +1,5 @@
 server:
-  port: 8902
+  port: 8999
 
 eureka:
   client:
@@ -10,19 +10,11 @@ eureka:
 
 spring:
   application:
-    name: admin-service-base
+    name: admin-portal
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     password: 123456
     url: jdbc:mysql://127.0.0.1/vue3-springcloud?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
     username: root
 
-mybatis:
-  mapper-locations: classpath:/mapper/**
-
-logging:
-  level:
-    com:
-      lihusoft:
-        mapper: trace
 

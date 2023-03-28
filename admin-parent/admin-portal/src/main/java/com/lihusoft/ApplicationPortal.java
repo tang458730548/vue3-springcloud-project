@@ -1,10 +1,10 @@
 package com.lihusoft;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * 描述：
@@ -15,11 +15,11 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
 @EnableEurekaClient
-@MapperScan("com.lihusoft.mapper")
+@EnableFeignClients
 @Slf4j
-public class ApplicationServiceBase {
+public class ApplicationPortal {
     public static void main(String[] args) {
-        SpringApplication.run(ApplicationServiceBase.class, args);
-        log.info("启动ApplicationServiceBase成功");
+        SpringApplication.run(ApplicationPortal.class, args);
+        log.info("启动ApplicationPortal成功");
     }
 }
