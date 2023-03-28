@@ -2,7 +2,6 @@ package com.lihusoft.controller;
 
 import com.lihusoft.domain.TbUser;
 import com.lihusoft.feign.TbUserServiceFeign;
-import com.lihusoft.http.HttpResultUtil;
 import com.lihusoft.http.HttpResultVo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
