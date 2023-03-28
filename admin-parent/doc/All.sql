@@ -1,0 +1,13 @@
+-- 数据库
+DROP TABLE IF EXISTS `tb_user`;
+CREATE TABLE `tb_user`
+(
+    `ID`               bigint(20) NOT NULL COMMENT 'ID',
+    `NAME`             varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '姓名',
+    `LOGIN_NAME`       varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '登陆名称',
+    `PASSWORD`         char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci     NOT NULL COMMENT '密码',
+    `CREATE_TIME`      datetime NULL DEFAULT CURRENT_TIMESTAMP,
+    `LAST_UPDATE_TIME` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`ID`) USING BTREE,
+    UNIQUE INDEX `LOGIN_NAME`(`LOGIN_NAME`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
