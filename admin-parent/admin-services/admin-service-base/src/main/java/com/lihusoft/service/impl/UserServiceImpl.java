@@ -4,7 +4,9 @@ import com.lihusoft.domain.TbUser;
 import com.lihusoft.domain.TbUserExample;
 import com.lihusoft.http.HttpResultUtil;
 import com.lihusoft.http.HttpResultVo;
+import com.lihusoft.mapper.Ex.TbUserExMapper;
 import com.lihusoft.mapper.TbUserMapper;
+import com.lihusoft.response.TbUserResp;
 import com.lihusoft.service.UserService;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,9 +26,17 @@ public class UserServiceImpl implements UserService {
     @Resource
     private TbUserMapper tbUserMapper;
 
+    @Resource
+    private TbUserExMapper tbUserExMapper;
+
     @Override
     public HttpResultVo<List<TbUser>> getUserList() {
         List<TbUser> tbUsers = tbUserMapper.selectByExample(new TbUserExample());
         return HttpResultUtil.build(tbUsers);
+    }
+
+    @Override
+    public List<TbUserResp> getUserByName(String loginName) {
+        return tbUserExMapper.getUserByName(loginName);
     }
 }
