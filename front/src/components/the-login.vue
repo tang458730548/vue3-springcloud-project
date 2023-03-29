@@ -3,16 +3,16 @@
     <div class="container-login">
       <a-card :bordered="false">
         <template v-slot:title>
-          <h3 class="container-login-title">登陆</h3>
+          <h2 class="container-login-title">登陆</h2>
         </template>
         <a-row type="flex">
           <a-col flex="280px">
-            <a-image style="height: 280px"
+            <a-image style="height: 300px"
                      src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
             />
           </a-col>
           <a-col flex="auto">
-            <a-card title="" :bordered="false" style="width: 100% ; height:100%">
+            <a-card title="" :bordered="false" style="width: 100% ; height:100%; padding-top: 30px">
               <a-form
                   :model="formState"
                   name="normal_login"
@@ -45,19 +45,19 @@
                   </a-input-password>
                 </a-form-item>
 
-                <a-form-item>
-                  <a-form-item name="remember" no-style>
-                    <a-checkbox v-model:checked="formState.remember">记住我</a-checkbox>
-                    <a class="login-form-forgot" href="">忘记密码？</a>
-                  </a-form-item>
+                <a-form-item name="remember" style="text-align: center">
+                  <a-checkbox v-model:checked="formState.remember">记住我</a-checkbox>
+                  <a class="login-form-forgot" href="">&nbsp;忘记密码？</a>
                 </a-form-item>
-                <a-form-item>
-                  <a-button :disabled="disabled" size="large" type="primary" html-type="submit"
+
+                <div style="text-align: center">
+                  <a-button :disabled="disabled" type="primary" html-type="submit"
+                            style="width: 180px"
                             class="login-form-button">
                     登陆
-                  </a-button> OR
-                  <a href="">前往注册!</a>
-                </a-form-item>
+                  </a-button>
+                  <span><a href="">&nbsp;&nbsp;前往注册!</a></span>
+                </div>
               </a-form>
             </a-card>
           </a-col>
@@ -92,8 +92,8 @@ export default defineComponent({
     });
 
     const layout = {
-      labelCol: {span: 4},
-      wrapperCol: {span: 16},
+      labelCol: {span: 5},
+      wrapperCol: {span: 18},
     };
 
     const onFinish = (values: any) => {
@@ -132,7 +132,7 @@ export default defineComponent({
 }
 
 .container-login {
-  width: 700px;
+  width: 680px;
   height: 100%;
   margin: 0 auto;
   border: 1px solid transparent;
