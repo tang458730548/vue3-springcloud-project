@@ -1,6 +1,8 @@
 package com.lihusoft.service.impl;
 
+import com.lihusoft.domain.TbUser;
 import com.lihusoft.feign.TbUserServiceFeign;
+import com.lihusoft.request.UserRequest;
 import com.lihusoft.response.TbUserResp;
 import com.lihusoft.service.LoginService;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List<TbUserResp> getUserByName(String userName) {
-        return userServiceFeign.getUserByName(userName);
+        UserRequest tbUser = new UserRequest();
+        tbUser.setLoginName(userName);
+        return userServiceFeign.getUserByName(tbUser);
     }
 }

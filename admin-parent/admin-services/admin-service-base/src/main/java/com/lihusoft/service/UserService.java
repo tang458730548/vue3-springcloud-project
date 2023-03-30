@@ -2,9 +2,11 @@ package com.lihusoft.service;
 
 import com.lihusoft.domain.TbUser;
 import com.lihusoft.http.HttpResultVo;
+import com.lihusoft.request.UserRequest;
 import com.lihusoft.response.TbUserResp;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -26,10 +28,10 @@ public interface UserService {
 
     /**
      * 根据用户名查询
-     * @param loginName
-     *          用户名
+     * @param tbUser
+     *      用户
      * @return List<TbUser>
      */
     @PostMapping("/user/ByName")
-    List<TbUserResp> getUserByName(String loginName);
+    List<TbUserResp> getUserByName(@RequestBody UserRequest tbUser);
 }

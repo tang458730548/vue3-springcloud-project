@@ -45,7 +45,7 @@ public class ShiroConfig {
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(myShiroRealm());
-        securityManager.setRememberMeManager(this.rememberMeManager());
+//        securityManager.setRememberMeManager(this.rememberMeManager());
         return securityManager;
     }
 
@@ -61,12 +61,14 @@ public class ShiroConfig {
         map.put("/logout", "logout");
         //对所有用户认证
         map.put("/**", "authc");
+        map.put("/toLogin", "anon");
+        map.put("/login", "anon");
         //登录
-        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl("/toLogin");
         //成功登录后跳转的url
         //shiroFilterFactoryBean.setSuccessUrl("/xxxx");
         //错误页面，认证不通过跳转
-        // shiroFilterFactoryBean.setUnauthorizedUrl("/error");
+         shiroFilterFactoryBean.setUnauthorizedUrl("/toLogin");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
     }

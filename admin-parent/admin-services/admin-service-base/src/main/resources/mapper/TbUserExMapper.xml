@@ -3,9 +3,10 @@
 
 <mapper namespace="com.lihusoft.mapper.Ex.TbUserExMapper">
 
-    <select id="getUserByName" resultType="com.lihusoft.response.TbUserResp">
+    <select id="getUserByName" resultType="com.lihusoft.response.TbUserResp" parameterType="com.lihusoft.request.UserRequest">
         SELECT t1.ID              AS id,
                t1.LOGIN_NAME      AS loginName,
+               t1.PASSWORD        AS password,
                t2.ROLE_NAME       AS roleName,
                t2.ID              AS roleId,
                t3.PERMISSION_NAME AS permissionName,
@@ -16,7 +17,10 @@
              tb_permission AS t3,
              tb_role_permission AS t4,
              tb_user_role AS t5
-        WHERE t1.userName = #{userName}
+        WHERE t1.LOGIN_NAME = #{loginName}
+          <if test="password !=null">
+              AND t1.PASSWORD = #{password}
+          </if>
           AND t1.ID = t5.USER_ID
           AND t5.ROLE_ID = t2.ID
           AND t4.ROLE_ID = t2.ID

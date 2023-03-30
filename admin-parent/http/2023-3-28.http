@@ -1,3 +1,11 @@
 ### 测试接口
 GET http://localhost:8999/user/list1
 
+###
+POST http://localhost:8999/login
+Content-Type: application/json
+
+{
+"loginName":"admin",
+"password": "123456"
+}

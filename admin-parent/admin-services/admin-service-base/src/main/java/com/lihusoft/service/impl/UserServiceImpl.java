@@ -6,8 +6,10 @@ import com.lihusoft.http.HttpResultUtil;
 import com.lihusoft.http.HttpResultVo;
 import com.lihusoft.mapper.Ex.TbUserExMapper;
 import com.lihusoft.mapper.TbUserMapper;
+import com.lihusoft.request.UserRequest;
 import com.lihusoft.response.TbUserResp;
 import com.lihusoft.service.UserService;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -36,7 +38,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<TbUserResp> getUserByName(String loginName) {
-        return tbUserExMapper.getUserByName(loginName);
+    public List<TbUserResp> getUserByName(@RequestBody UserRequest tbUser) {
+        return tbUserExMapper.getUserByName(tbUser);
     }
 }

@@ -3,6 +3,8 @@ package com.lihusoft.controller;
 import com.lihusoft.domain.TbUser;
 import com.lihusoft.feign.TbUserServiceFeign;
 import com.lihusoft.http.HttpResultVo;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +26,7 @@ public class UserController {
     @Resource
     private TbUserServiceFeign tbUserServiceFeign;
 
+    @RequiresRoles(value ="admin1")
     @GetMapping("/list1")
     public HttpResultVo<List<TbUser>> list(){
         return tbUserServiceFeign.getUserList();
