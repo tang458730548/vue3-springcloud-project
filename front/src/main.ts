@@ -4,6 +4,33 @@ import router from './router'
 import store from './store'
 import 'ant-design-vue/dist/antd.css';
 import Antd from 'ant-design-vue';
+import axios from 'axios'
+
+axios.defaults.baseURL=process.env.VUE_APP_SERVER
+
+/**
+ * axios拦截器
+ */
+axios.interceptors.request.use(function (config) {
+    console.log('请求参数' , config)
+    // const token = store.state.user.token;
+    // if (Tool.isNotEmpty(token)) {
+    //     config.headers.token = token;
+    //     console.log("请求headers增加token:", token);
+    // }
+    return config;
+} , error => {
+    return Promise.reject(error);
+})
+
+axios.interceptors.response.use(function (response) {
+    console.log("返回结果" , response)
+    return response;
+} , error => {
+    console.log("返回错误" ,error)
+    return Promise.reject(error)
+})
+
 
 const app = createApp(App);
 app.use(store)

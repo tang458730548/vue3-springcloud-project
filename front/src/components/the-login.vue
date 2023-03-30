@@ -19,6 +19,7 @@
           <a-col flex="auto">
             <a-card title="" :bordered="false" style="width: 100% ; height:100%;">
               <a-form
+                  :loading="formLoading"
                   :model="formState"
                   name="normal_login"
                   class="login-form"
@@ -59,6 +60,7 @@
                 <a-form-item style="text-align: center" :wrapper-col="{ span: 22, offset: 2 }">
                   <a-button :disabled="disabled" type="primary" html-type="submit"
                             style="width: 60%; text-align: center"
+                            :loading="formLoading"
                             class="login-form-button">
                     登陆
                   </a-button>
@@ -102,6 +104,8 @@
 <script lang="ts">
 import {defineComponent, reactive, computed, ref} from 'vue';
 import {UserOutlined, LockOutlined, WechatOutlined, QqOutlined, QrcodeOutlined} from '@ant-design/icons-vue';
+import axios from 'axios'
+import {message} from "ant-design-vue";
 
 interface FormState {
   loginName: string;
@@ -121,6 +125,8 @@ export default defineComponent({
   setup() {
     const isShowScan = ref(false)
 
+    const formLoading = ref(false)
+
     const formState = reactive<FormState>({
       loginName: '',
       password: '',
@@ -133,7 +139,21 @@ export default defineComponent({
     };
 
     const onFinish = (values: any) => {
-      console.log('Success:', values);
+      console.log(values)
+      formLoading.value = true
+      axios.post('login', {
+        ...values
+      }).then(response => {
+        if (response.data.code == 200) {
+          console.log("登陆成功");
+          message.success(`登陆成功！`)
+        }else{
+          message.error(`用户名或者密码错误！`)
+        }
+        setTimeout(function () {
+          formLoading.value = false
+        }, 200)
+      })
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -153,7 +173,8 @@ export default defineComponent({
       onFinishFailed,
       disabled,
       exchangeScan,
-      isShowScan
+      isShowScan,
+      formLoading
     };
   },
 });
