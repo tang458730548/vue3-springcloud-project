@@ -6,7 +6,7 @@
       </a-col>
       <a-col :span="5">
         <router-link to="/">
-          <span><h2 style="color: white">xxxxxxx管理系统后台</h2></span>
+          <span style="color: white; font-size: 18px">xxxxxxx管理系统后台</span>
         </router-link>
       </a-col>
       <a-col :span="5" :offset="13" >
