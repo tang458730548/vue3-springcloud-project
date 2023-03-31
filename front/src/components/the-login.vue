@@ -67,7 +67,7 @@
                   <a class="login-form-forgot" style="margin-left: 10px" href="">&nbsp;前往注册？</a>
                 </a-form-item>
 
-                <div>
+                <div style="text-align: center">
                   <a>
                     <WechatOutlined class="wechart-svg"/>
                     <span style="vertical-align: middle">&nbsp;微信登陆</span>
@@ -106,6 +106,7 @@ import {defineComponent, reactive, computed, ref} from 'vue';
 import {UserOutlined, LockOutlined, WechatOutlined, QqOutlined, QrcodeOutlined} from '@ant-design/icons-vue';
 import axios from 'axios'
 import {message} from "ant-design-vue";
+import store from "@/store";
 
 interface FormState {
   loginName: string;
@@ -147,12 +148,15 @@ export default defineComponent({
         if (response.data.code == 200) {
           console.log("登陆成功");
           message.success(`登陆成功！`)
+          setTimeout(function () {
+            store.commit("setUser", response.data.data);
+          }, 1000)
         }else{
           message.error(`用户名或者密码错误！`)
         }
         setTimeout(function () {
           formLoading.value = false
-        }, 200)
+        }, 1000)
       })
     };
 
@@ -190,7 +194,7 @@ export default defineComponent({
   height: 100%;
   width: 100%;
   /*background-color: black;*/
-  padding: 100px 0;
+  padding: 150px 0;
   background-color: cornflowerblue;
 }
 
