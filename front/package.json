@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "vue-cli-service serve --mode dev",
+    "start": "vue-cli-service serve --mode dev --host 127.0.0.1 --port 8080",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
