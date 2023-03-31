@@ -5,6 +5,8 @@
     <id column="ID" jdbcType="BIGINT" property="id" />
     <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
     <result column="ROLE_REMARKS" jdbcType="VARCHAR" property="roleRemarks" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, ROLE_NAME, ROLE_REMARKS
+    ID, ROLE_NAME, ROLE_REMARKS, CREATE_TIME, LAST_UPDATE_TIME
   </sql>
   <select id="selectByExample" parameterType="com.lihusoft.domain.TbRoleExample" resultMap="BaseResultMap">
     select
@@ -98,10 +100,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.lihusoft.domain.TbRole">
-    insert into tb_role (ID, ROLE_NAME, ROLE_REMARKS
-      )
-    values (#{id,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}, #{roleRemarks,jdbcType=VARCHAR}
-      )
+    insert into tb_role (ID, ROLE_NAME, ROLE_REMARKS, 
+      CREATE_TIME, LAST_UPDATE_TIME)
+    values (#{id,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}, #{roleRemarks,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.lihusoft.domain.TbRole">
     insert into tb_role
@@ -115,6 +117,12 @@
       <if test="roleRemarks != null">
         ROLE_REMARKS,
       </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="lastUpdateTime != null">
+        LAST_UPDATE_TIME,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -125,6 +133,12 @@
       </if>
       <if test="roleRemarks != null">
         #{roleRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -146,6 +160,12 @@
       <if test="record.roleRemarks != null">
         ROLE_REMARKS = #{record.roleRemarks,jdbcType=VARCHAR},
       </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateTime != null">
+        LAST_UPDATE_TIME = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -155,7 +175,9 @@
     update tb_role
     set ID = #{record.id,jdbcType=BIGINT},
       ROLE_NAME = #{record.roleName,jdbcType=VARCHAR},
-      ROLE_REMARKS = #{record.roleRemarks,jdbcType=VARCHAR}
+      ROLE_REMARKS = #{record.roleRemarks,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_TIME = #{record.lastUpdateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -169,13 +191,21 @@
       <if test="roleRemarks != null">
         ROLE_REMARKS = #{roleRemarks,jdbcType=VARCHAR},
       </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null">
+        LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where ID = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.lihusoft.domain.TbRole">
     update tb_role
     set ROLE_NAME = #{roleName,jdbcType=VARCHAR},
-      ROLE_REMARKS = #{roleRemarks,jdbcType=VARCHAR}
+      ROLE_REMARKS = #{roleRemarks,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

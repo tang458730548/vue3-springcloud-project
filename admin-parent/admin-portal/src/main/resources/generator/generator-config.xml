@@ -47,6 +47,6 @@
 <!--        <table tableName="content"/>-->
 <!--        <table tableName="ebook_snapshot"/>-->
 <!--        <table tableName="ebook" />-->
-        <table tableName="tb_user" />
+<!--        <table tableName="tb_user" />-->
     </context>
 </generatorConfiguration>
