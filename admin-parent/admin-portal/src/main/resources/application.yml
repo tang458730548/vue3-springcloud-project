@@ -16,5 +16,14 @@ spring:
     password: 123456
     url: jdbc:mysql://127.0.0.1/vue3-springcloud?characterEncoding=UTF8&autoReconnect=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true
     username: root
+  #redis配置
+  redis:
+    host: r-uf6ljbcdaxobsifyctpd.redis.rds.aliyuncs.com
+    password: Redis000
+    port: 6379
+
+front:
+  login:
+    url: http://127.0.0.1:8080/
 
 

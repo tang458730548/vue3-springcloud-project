@@ -26,7 +26,7 @@ public class UserController {
     @Resource
     private TbUserServiceFeign tbUserServiceFeign;
 
-    @RequiresRoles(value ="admin1")
+    @RequiresRoles(value ="admin")
     @GetMapping("/list1")
     public HttpResultVo<List<TbUser>> list(){
         return tbUserServiceFeign.getUserList();
