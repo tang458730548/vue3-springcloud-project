@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lihusoft.mapper.TbModuleMapper">
+  <resultMap id="BaseResultMap" type="com.lihusoft.domain.TbModule">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="PARENT_ID" jdbcType="BIGINT" property="parentId" />
+    <result column="MODULE_NAME" jdbcType="VARCHAR" property="moduleName" />
+    <result column="MODULE_URL" jdbcType="VARCHAR" property="moduleUrl" />
+    <result column="MODULE_SORT" jdbcType="INTEGER" property="moduleSort" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="LAST_UPDATE_TIME" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, PARENT_ID, MODULE_NAME, MODULE_URL, MODULE_SORT, CREATE_TIME, LAST_UPDATE_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.lihusoft.domain.TbModuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_module
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_module
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lihusoft.domain.TbModuleExample">
+    delete from tb_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lihusoft.domain.TbModule">
+    insert into tb_module (ID, PARENT_ID, MODULE_NAME, 
+      MODULE_URL, MODULE_SORT, CREATE_TIME, 
+      LAST_UPDATE_TIME)
+    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{moduleName,jdbcType=VARCHAR}, 
+      #{moduleUrl,jdbcType=VARCHAR}, #{moduleSort,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lihusoft.domain.TbModule">
+    insert into tb_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="moduleName != null">
+        MODULE_NAME,
+      </if>
+      <if test="moduleUrl != null">
+        MODULE_URL,
+      </if>
+      <if test="moduleSort != null">
+        MODULE_SORT,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="lastUpdateTime != null">
+        LAST_UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="moduleName != null">
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleUrl != null">
+        #{moduleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleSort != null">
+        #{moduleSort,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lihusoft.domain.TbModuleExample" resultType="java.lang.Long">
+    select count(*) from tb_module
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_module
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.parentId != null">
+        PARENT_ID = #{record.parentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.moduleName != null">
+        MODULE_NAME = #{record.moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleUrl != null">
+        MODULE_URL = #{record.moduleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleSort != null">
+        MODULE_SORT = #{record.moduleSort,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastUpdateTime != null">
+        LAST_UPDATE_TIME = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_module
+    set ID = #{record.id,jdbcType=BIGINT},
+      PARENT_ID = #{record.parentId,jdbcType=BIGINT},
+      MODULE_NAME = #{record.moduleName,jdbcType=VARCHAR},
+      MODULE_URL = #{record.moduleUrl,jdbcType=VARCHAR},
+      MODULE_SORT = #{record.moduleSort,jdbcType=INTEGER},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_TIME = #{record.lastUpdateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lihusoft.domain.TbModule">
+    update tb_module
+    <set>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="moduleName != null">
+        MODULE_NAME = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleUrl != null">
+        MODULE_URL = #{moduleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleSort != null">
+        MODULE_SORT = #{moduleSort,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null">
+        LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lihusoft.domain.TbModule">
+    update tb_module
+    set PARENT_ID = #{parentId,jdbcType=BIGINT},
+      MODULE_NAME = #{moduleName,jdbcType=VARCHAR},
+      MODULE_URL = #{moduleUrl,jdbcType=VARCHAR},
+      MODULE_SORT = #{moduleSort,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

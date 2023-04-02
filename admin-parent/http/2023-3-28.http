@@ -1,8 +1,8 @@
 ### 测试接口
-GET http://localhost:8999/user/list1
+GET http://127.0.0.1:8999/user/list1
 
 ###
-POST http://localhost:8999/login
+POST http://127.0.0.1:8999/login
 Content-Type: application/json
 
 {

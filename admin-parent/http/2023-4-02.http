@@ -1,0 +1,8 @@
+### 测试接口
+
+POST http://127.0.0.1:8999/admin/module/list
+Content-Type: application/json
+
+{
+
+}
