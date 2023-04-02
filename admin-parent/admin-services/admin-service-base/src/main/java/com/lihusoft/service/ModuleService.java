@@ -1,7 +1,11 @@
 package com.lihusoft.service;
 
+import com.lihusoft.request.ModuleRequest;
 import com.lihusoft.response.TbModuleResp;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -19,5 +23,12 @@ public interface ModuleService {
      * @return List<TbModuleResp>
      */
     @GetMapping("/module/list")
-    List<TbModuleResp> getModuleList();
+    List<TbModuleResp> list();
+
+    @PostMapping("/module/insert")
+    Integer insert(@RequestBody ModuleRequest moduleRequest);
+
+    @PostMapping("/module/delete/{id}")
+    Integer delete(@PathVariable String id);
+
 }
