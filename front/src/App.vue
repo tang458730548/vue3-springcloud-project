@@ -14,7 +14,7 @@
                 mode="inline"
                 @click="click"
             >
-              <a-sub-menu v-for="item in moduleList" :key="item.id">
+              <a-sub-menu v-for="item in moduleList" :key="item.id" style="border-bottom: 1px solid #fff">
                 <template v-slot:title>
                   <span><laptop-outlined/>&nbsp;&nbsp;{{ item.moduleName }}</span>
                 </template>
@@ -24,9 +24,11 @@
               </a-sub-menu>
             </a-menu>
           </a-layout-sider>
-          <a-layout-content :style="{minHeight: '400px'}">
+          <a-layout-content :style="{minHeight: '400px', overflow:'auto', height: '100%'}">
             <div class="content-header"></div>
-            <router-view/>
+            <div class="content-router">
+              <router-view/>
+            </div>
           </a-layout-content>
         </a-layout>
       </a-layout-content>
