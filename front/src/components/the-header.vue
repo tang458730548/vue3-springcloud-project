@@ -35,6 +35,7 @@ import {defineComponent, computed, ref} from 'vue';
 import store from "@/store";
 import axios from "axios";
 import {message} from "ant-design-vue";
+import router from "@/router";
 
 
 export default defineComponent({
@@ -50,7 +51,7 @@ export default defineComponent({
           message.success("退出登录成功！");
           setTimeout(function () {
             store.commit("setUser", {});
-            window.location.hash = '/'
+            router.push('/')
           }, 1000)
         } else {
           message.error(data.message);

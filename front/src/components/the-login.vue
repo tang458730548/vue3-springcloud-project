@@ -107,6 +107,7 @@ import {UserOutlined, LockOutlined, WechatOutlined, QqOutlined, QrcodeOutlined} 
 import axios from 'axios'
 import {message} from "ant-design-vue";
 import store from "@/store";
+import router from "@/router";
 
 interface FormState {
   loginName: string;
@@ -149,6 +150,7 @@ export default defineComponent({
           console.log("登陆成功");
           message.success(`登陆成功！`)
           setTimeout(function () {
+            window.location.reload()
             store.commit("setUser", response.data.data);
           }, 1000)
         }else{
