@@ -3,17 +3,23 @@
     <a-col :span="4" style="border: 1px solid #eee;height: 100%">
       <a-directory-tree
           style="padding-top: 10px;height: 100%"
-          v-model:expandedKeys="expandedKeys"
-          v-model:selectedKeys="selectedKeys"
           multiple
-          :tree-data="treeData"
+          :fieldNames="{children:'children', title:'moduleName', key:'id' }"
+          :tree-data="moduleList"
+          v-model:expandedKeys="openKeys"
+          @select="handClick"
       ></a-directory-tree>
     </a-col>
     <a-col :span="20">
+      <a-space :size="10" style="margin: 10px 0px 0px 10px">
+        <a-button type="primary" @click="add">添加</a-button>
+        <a-button type="primary" @click="update">修改</a-button>
+        <a-button type="primary" @click="handleDelete">删除</a-button>
+      </a-space>
       <a-form
           style="padding-top: 10px"
           layout="horizontal"
-          :model="formState"
+          :model="module"
           name="basic"
           :label-col="{ span: 2 }"
           :wrapper-col="{ span: 8 }"
@@ -22,28 +28,42 @@
           @finishFailed="onFinishFailed"
       >
         <a-form-item
+            label="模块ID"
+            name="id"
+            v-show="false"
+        >
+          <a-input v-model:value="module.id"/>
+        </a-form-item>
+        <a-form-item
+            label="模块PID"
+            name="parentId"
+            v-show="false"
+        >
+          <a-input v-model:value="module.parentId"/>
+        </a-form-item>
+        <a-form-item
             label="模块名称"
             name="moduleName"
             :rules="[{ required: true, message: '请输入模块名称' }]"
         >
-          <a-input v-model:value="formState.moduleName"/>
+          <a-input :disabled="disabled" v-model:value="module.moduleName"/>
         </a-form-item>
         <a-form-item
             label="模块URL"
             name="moduleUrl"
             :rules="[{ required: true, message: '请输入模块URL' }]"
         >
-          <a-input v-model:value="formState.moduleUrl"/>
+          <a-input :disabled="disabled" v-model:value="module.moduleUrl"/>
         </a-form-item>
         <a-form-item
             label="排序"
             name="moduleSort"
             :rules="[{validator: checkSort }]"
         >
-          <a-input-number v-model:value="formState.moduleSort"></a-input-number>
+          <a-input-number :disabled="disabled" v-model:value="module.moduleSort"></a-input-number>
         </a-form-item>
         <a-form-item :wrapper-col="{ span: 8, offset: 2 }">
-          <a-button type="primary" html-type="submit">确认</a-button>
+          <a-button type="primary" html-type="submit" size="large" :loading="loading">确认</a-button>
         </a-form-item>
       </a-form>
     </a-col>
@@ -51,11 +71,15 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, reactive, ref, watch} from 'vue';
+import {defineComponent, onMounted, reactive, ref, watch} from 'vue';
 import {message, TreeProps} from "ant-design-vue";
 import {Rule} from "ant-design-vue/es/form";
+import axios from "axios";
+import {Tool} from "@/util/tool";
 
 interface FormState {
+  id: any;
+  parentId: any;
   moduleName: string;
   moduleUrl: string;
   moduleSort: number;
@@ -65,49 +89,43 @@ export default defineComponent({
   name: "AdminModule",
   components: {},
   setup() {
-    const expandedKeys = ref<string[]>(['0-0', '0-1']);
-    const selectedKeys = ref<string[]>([]);
-    const treeData: TreeProps['treeData'] = [
-      {
-        title: 'parent 0',
-        key: '0-0',
-        children: [
-          {
-            title: 'leaf 0-0',
-            key: '0-0-0',
-            isLeaf: true,
-          },
-          {
-            title: 'leaf 0-1',
-            key: '0-0-1',
-            isLeaf: true,
-          },
-        ],
-      },
-      {
-        title: 'parent 1',
-        key: '0-1',
-        children: [
-          {
-            title: 'leaf 1-0',
-            key: '0-1-0',
-            isLeaf: true,
-          },
-          {
-            title: 'leaf 1-1',
-            key: '0-1-1',
-            isLeaf: true,
-          },
-        ],
-      },
-    ];
-    const formState = reactive<FormState>({
+    const modules = ref();
+    modules.value = []
+
+    const moduleList = ref();
+    moduleList.value = []
+
+    let openKeys = ref();
+    openKeys.value = []
+
+    const module = ref();
+    module.value = reactive<FormState>({
+      id: undefined,
+      parentId: undefined,
       moduleName: '',
       moduleUrl: '',
       moduleSort: 0,
     });
+
+    const disabled = ref(true)
+
     const onFinish = (values: any) => {
       console.log('Success:', values);
+      loading.value = true
+      axios.post('admin/module/insert', {
+        ...values
+      }).then(response => {
+        const result = response.data
+        if (result.code === 200) {
+          message.success(`操作成功！`)
+        } else {
+          message.success(result.message)
+        }
+        setTimeout(function () {
+          loading.value = false
+          handleQueryModuleList()
+        }, 200);
+      })
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -126,14 +144,109 @@ export default defineComponent({
       }
     }
 
+    const loading = ref(false);
+
+    const handleQueryModuleList = () => {
+      loading.value = true
+      axios.post('admin/module/list').then(
+          response => {
+            const result = response.data
+            if (result.code == 200) {
+              modules.value = Tool.copy(result.data)
+              moduleList.value = Tool.array2Tree(result.data, 0);
+              console.log(moduleList.value)
+              openKeys.value = result.data.map((item: any) => {
+                return item.id
+              })
+              console.log(openKeys)
+            } else {
+              message.error(result.message);
+            }
+
+            setTimeout(function () {
+              loading.value = false
+            }, 200);
+          }
+      )
+    }
+
+    const handClick = (value: any) => {
+      const id = value[0];
+      module.value = modules.value.find((item: any) => {
+        return item.id === id
+      })
+      disabled.value = true
+      parentId.value = id
+    }
+
+    const update = () => {
+      if (!parentId.value) {
+        message.warn(`请您先选择一个节点`)
+        return
+      }
+      handClick([parentId.value])
+      disabled.value = false
+    }
+
+    const add = (value: any) => {
+      console.log(value)
+      if (!parentId.value) {
+        message.warn(`请您先选择一个节点`)
+        return
+      }
+      module.value = {
+        "parentId": parentId.value
+      }
+      disabled.value = false
+    }
+
+    const parentId = ref()
+
+    const handleDelete = () => {
+      if (!parentId.value) {
+        message.warn(`请您先选择一个节点`)
+        return
+      }
+      const id = parentId.value
+      let ids = Tool.getSubTreeIds(moduleList.value, id)||[].map((item: any) => {
+        return item.id
+      })
+      ids.unshift(id)
+      console.log(`删除的ids为${ids}`)
+      loading.value = true
+      axios.post(`admin/module/delete/${ids.join(',')}`).then(response => {
+        const result = response.data
+        if (result.code === 200) {
+          message.success(`删除成功!`)
+        } else {
+          message.error(result.message)
+        }
+        setTimeout(function () {
+          loading.value = false
+          handleQueryModuleList()
+        }, 200);
+
+      })
+    }
+
+    onMounted(() => {
+      handleQueryModuleList()
+    })
+
     return {
-      expandedKeys,
-      selectedKeys,
-      treeData,
-      formState,
       onFinish,
       onFinishFailed,
-      checkSort
+      checkSort,
+      moduleList,
+      handClick,
+      module,
+      openKeys,
+      disabled,
+      update,
+      add,
+      parentId,
+      handleDelete,
+      loading
     };
   },
 });

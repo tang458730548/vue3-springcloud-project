@@ -67,6 +67,7 @@ export class Tool {
             //判断递归结束条件
             if (item.id == parentId) {
                 // 存储数据到空数组
+                this.result = []
                 this.result = item.children;
             } else if (item.children != null) {
                 //递归调用

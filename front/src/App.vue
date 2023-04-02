@@ -6,7 +6,8 @@
       <a-layout-content class="home">
         <a-layout style="width: 100%; height:100%; background: #fff">
           <a-layout-sider
-              width="200" style="overflow: auto;background-color: #eee;">
+              width="200" style="overflow: auto;background-color: #eee;border: 1px solid #ddd">
+            <div class="content-header"><p style="font-size: 16px; text-align: center">功能菜单</p></div>
             <a-menu
                 style="background-color: #eee;"
                 v-model:openKeys="openKeys"
@@ -144,7 +145,6 @@ export default defineComponent({
   height: 48px;
   line-height: 48px;
   background: #eee;
-  border: 1px solid #eee;
-  border-left: 1px solid #fff;
+  border: 1px solid #ddd;
 }
 </style>
