@@ -2,7 +2,7 @@
   <a-layout-header class="header">
     <a-row>
       <a-col :span="1">
-        <img style="width: 45px;height: 45px;" src="/favicon.ico"/>
+        <img style="width: 40px;height: 40px;" src="/favicon.ico"/>
       </a-col>
       <a-col :span="5">
         <router-link to="/">
@@ -70,9 +70,9 @@ export default defineComponent({
 <style>
 .header {
   width: 100%;
-  height: 50px !important;
+  height: 40px !important;
   padding: 0 30px 0px 10px !important;
-  line-height: 50px !important;
+  line-height: 40px !important;
   background-color: cornflowerblue !important;
 }
 </style>

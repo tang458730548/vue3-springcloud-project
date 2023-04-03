@@ -25,7 +25,7 @@
               </a-sub-menu>
             </a-menu>
           </a-layout-sider>
-          <a-layout-content :style="{minHeight: '400px', overflow:'auto', height: '100%'}">
+          <a-layout-content :style="{minHeight: '400px', height: '100%'}">
             <div class="content-header"></div>
             <div class="content-router">
               <router-view/>
@@ -120,7 +120,7 @@ export default defineComponent({
 <style>
 
 .home {
-  height: calc(100% - 50px - 64px);
+  height: calc(100% - 40px - 40px);
   width: 100%;
 }
 
@@ -146,5 +146,10 @@ export default defineComponent({
   line-height: 48px;
   background: #eee;
   border: 1px solid #ddd;
+}
+
+.content-router {
+  height: calc(100% - 48px - 40px);
+  overflow: auto;
 }
 </style>

@@ -22,7 +22,8 @@ export default defineComponent({
 .footer {
   position: absolute;
   width: 100%;
-  height: 60px;
+  height: 40px;
+  padding: 10px 0 !important;
   bottom: 0px;
   background-color: cornflowerblue !important;
   font-size: 18px;

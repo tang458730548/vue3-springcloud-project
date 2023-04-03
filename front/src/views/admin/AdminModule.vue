@@ -2,7 +2,7 @@
   <a-row style="height: 100%">
     <a-col :span="4" style="border: 1px solid #eee;height: 100%">
       <a-directory-tree
-          style="padding-top: 10px;height: 100%"
+          style="padding-top: 10px;height: 100%;"
           multiple
           :fieldNames="{children:'children', title:'moduleName', key:'id' }"
           :tree-data="moduleList"
@@ -208,7 +208,7 @@ export default defineComponent({
         return
       }
       const id = parentId.value
-      let ids = Tool.getSubTreeIds(moduleList.value, id)||[].map((item: any) => {
+      let ids = Tool.getSubTreeIds(moduleList.value, id) || [].map((item: any) => {
         return item.id
       })
       ids.unshift(id)
