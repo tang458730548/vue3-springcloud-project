@@ -151,5 +151,6 @@ export default defineComponent({
 .content-router {
   height: calc(100% - 48px - 40px);
   overflow: auto;
+  background-color: #f0f2f5;
 }
 </style>
